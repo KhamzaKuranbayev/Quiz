@@ -4,13 +4,17 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class ApiService {
 
-    constructor(private http: HttpClient) {}
-   
+    constructor(private http: HttpClient) { }
+
     postQuestion(question) {
         this.http.post('https://localhost:44382/api/question', question)
-        .subscribe(response => {
-            console.log(response);
-        })
+            .subscribe(response => {
+                console.log(response);
+            })
+    }
+
+    getQuestion() {
+        return this.http.get('https://localhost:44382/api/question');
     }
 
 }
