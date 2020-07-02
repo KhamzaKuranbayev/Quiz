@@ -23,6 +23,7 @@ namespace Quiz.Backend.Controllers
         [HttpPost]
         public void Post([FromBody] Question question)
         {
+            question.WrongAnswersString = String.Join(',', question.WrongAnswers.ToArray());
             _context.Questions.Add(question);
             _context.SaveChanges();
         }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from './api.service';
 
-@Component ({
+@Component({
     templateUrl: './question.component.html',
     selector: 'question'
 })
@@ -9,7 +9,9 @@ import { ApiService } from './api.service';
 export class QuestionComponent {
 
     question = {
-        text: ''
+        text: 'USA poytaxti',
+        correctAnswer: 'Washington',
+        wrongAnswers: ['Los Angeles', 'New York', 'Chicago']
     };
 
     constructor(private apiSvc: ApiService) {
