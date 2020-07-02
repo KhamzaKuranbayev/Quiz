@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiService } from './api.service';
 
 @Component ({
     templateUrl: './question.component.html',
@@ -7,9 +8,15 @@ import { Component } from '@angular/core';
 
 export class QuestionComponent {
 
-    question: string;
+    question = {
+        text: ''
+    };
+
+    constructor(private apiSvc: ApiService) {
+    }
+
     post() {
-        console.log(this.question);
+        this.apiSvc.postQuestion(this.question);
     }
 
 }
