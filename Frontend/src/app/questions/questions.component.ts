@@ -14,7 +14,7 @@ export class QuestionsComponent {
     }
 
     ngOnInit(){
-        this.apiSvc.getQuestion().subscribe(result => {
+        this.apiSvc.getQuestions().subscribe(result => {
             this.questions = result;
         })
     }
