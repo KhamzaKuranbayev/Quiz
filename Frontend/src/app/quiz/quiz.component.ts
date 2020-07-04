@@ -31,13 +31,15 @@ export class QuizComponent implements OnInit {
       this.apiSvc.putQuiz(this.quiz);
     else
       this.apiSvc.postQuiz(this.quiz);
+
+     this.resetQuiz(); 
   }
 
   resetQuiz() {
     this.quiz = new Quiz();
   }
 
-  navigateToQuistions() {
+  navigateToQuestions() {
     this.router.navigate(['/question/' + this.quiz.id]);
   }
 

@@ -9,6 +9,8 @@ export class ApiService {
 
     private selectedQuestion = new Subject<Question>();
     private selectedQuiz = new Subject<Quiz>();
+    private newQuestion = new Subject<Question>();
+    private newQuiz = new Subject<Quiz>();
 
     constructor(private http: HttpClient) { }
 
@@ -28,9 +30,26 @@ export class ApiService {
         return this.selectedQuiz.asObservable();
     }
 
+    addNewQuestion(question: Question) {
+        return this.newQuestion.next(question);
+    }
+
+    getNewQuestion() {
+        return this.newQuestion.asObservable();
+    }
+
+    getNewQuiz(){
+        return this.newQuiz.asObservable();
+    }
+
+    addNewQuiz(quiz: Quiz) {
+        return this.newQuiz.next(quiz);
+    }
+
     postQuestion(question: Question) {
         this.http.post('https://localhost:44382/api/question', question)
             .subscribe(response => {
+                this.addNewQuestion(response as Question);
                 console.log(response);
             })
     }
@@ -45,6 +64,7 @@ export class ApiService {
     postQuiz(quiz: Quiz) {
         this.http.post('https://localhost:44382/api/quizzes', quiz)
             .subscribe(response => {
+                this.addNewQuiz(response as Quiz);
                 console.log(response);
             })
     }
@@ -56,8 +76,8 @@ export class ApiService {
             })
     }
 
-    getQuestions() {
-        return this.http.get('https://localhost:44382/api/question');
+    getQuestions(quizId) {
+        return this.http.get(`https://localhost:44382/api/question/${quizId}`);
     }
 
     getQuizzes() {
