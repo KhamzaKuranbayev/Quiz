@@ -23,6 +23,7 @@ import { QuizzesComponent } from './quizzes/quizzes.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './auth.service';
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { LoginComponent } from './login/login.component';
 
 
 const routes = [
@@ -32,6 +33,7 @@ const routes = [
   {path: 'quiz', component: QuizComponent},
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'quizzes', component: QuizzesComponent}
 ];
 
@@ -46,6 +48,7 @@ const routes = [
     QuizComponent,
     QuizzesComponent,
     RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
