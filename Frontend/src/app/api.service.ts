@@ -84,4 +84,8 @@ export class ApiService {
         return this.http.get('https://localhost:44382/api/quizzes');
     }
 
+    getAllQuizzes() {
+        return this.http.get('https://localhost:44382/api/quizzes/all');
+    }
+
 }
