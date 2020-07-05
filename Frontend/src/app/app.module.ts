@@ -10,8 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { QuestionsComponent } from './questions/questions.component';
 import { RouterModule } from '@angular/router';
@@ -20,6 +20,9 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { QuizzesComponent } from './quizzes/quizzes.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthService } from './auth.service';
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 
 const routes = [
@@ -28,6 +31,7 @@ const routes = [
   {path: 'questions', component: QuestionsComponent},
   {path: 'quiz', component: QuizComponent},
   {path: '', component: HomeComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'quizzes', component: QuizzesComponent}
 ];
 
@@ -41,6 +45,7 @@ const routes = [
     NavbarComponent,
     QuizComponent,
     QuizzesComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,9 +58,14 @@ const routes = [
     MatListModule,
     MatToolbarModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    ReactiveFormsModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, AuthService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

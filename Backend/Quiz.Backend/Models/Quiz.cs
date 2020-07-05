@@ -10,6 +10,6 @@ namespace Quiz.Backend.Models
     {
         public long Id { get; set; }
         public string  Title { get; set; }
-
+        public string OwnerId { get; set; }
     }
 }
