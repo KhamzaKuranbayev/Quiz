@@ -30,9 +30,14 @@ namespace Quiz.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
-            services.AddDbContext<QuizContext>(options => options.UseInMemoryDatabase("Quiz"));
-            services.AddDbContext<UserDbContext>(options => options.UseInMemoryDatabase("User"));
+            services.AddCors(o => o.AddPolicy("AllowOrigin", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+            services.AddDbContext<QuizContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:QuizDB"]));
+            services.AddDbContext<UserDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:UserDB"]));
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Constants.KEY_PHRASE));
@@ -60,6 +65,7 @@ namespace Quiz.Backend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("AllowOrigin");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
