@@ -2,7 +2,7 @@
     <mat-card-content>
         <mat-list *ngFor="let quiz of quizzes; let i = index">
             <mat-list-item class="clickItem" [routerLink]="['/playQuiz', quiz.id]"> {{ quiz.title }} </mat-list-item>
-        </mat-list>
+        </mat-list> 
     </mat-card-content>
     <mat-card-actions>
 
